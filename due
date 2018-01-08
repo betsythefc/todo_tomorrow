@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+action=$1
+
+function usage {
+	echo "  $(basename $0)"
+	echo "    List tasks that are due today and tomorrow."
+	echo ""
+	exit
+}
+
+[ "$action" = "usage" ] && usage
+
+TODAY=$(date +%Y-%m-%d)
+
+if [ $(uname) != "Darwin" ]
+then
+    TOMORROW=$(date --date="tomorrow" +%Y-%m-%d)
+else
+    TOMORROW=$(date -v "+1d" +%Y-%m-%d)
+fi
+
+cd "$TODO_DIR"
+grep -E "(due:$TODAY|due:$TOMORROW)" $TODO_FILE

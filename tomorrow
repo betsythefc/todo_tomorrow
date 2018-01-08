@@ -4,14 +4,12 @@ action=$1
 
 function usage {
 	echo "  $(basename $0)"
-	echo "    List tasks that are due today and tomorrow."
+	echo "    List tasks that are due tomorrow"
 	echo ""
 	exit
 }
 
 [ "$action" = "usage" ] && usage
-
-TODAY=$(date +%Y-%m-%d)
 
 if [ $(uname) != "Darwin" ]
 then
@@ -21,4 +19,4 @@ else
 fi
 
 cd "$TODO_DIR"
-grep -E "(due:$TODAY|due:$TOMORROW)" $TODO_FILE
+grep "due:$TOMORROW" $TODO_FILE | sed "s/due:$TOMORROW/due:tomorrow/g"

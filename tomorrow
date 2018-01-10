@@ -18,5 +18,4 @@ else
     TOMORROW=$(date -v "+1d" +%Y-%m-%d)
 fi
 
-cd "$TODO_DIR"
-grep "due:$TOMORROW" $TODO_FILE | sed "s/due:$TOMORROW/due:tomorrow/g"
+todo.sh list | grep "due:$TOMORROW" | sed "s/due:$TOMORROW/due:tomorrow/g"
